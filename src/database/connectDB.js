@@ -4,14 +4,22 @@ const connection = (function () {
   let sequelize;
 
   const init = async () => {
+    // sequelize = new Sequelize(
+    //   process.env.DB_NAME,
+    //   process.env.DB_USER_NAME,
+    //   process.env.DB_PASSWORD,
+    //   {
+    //     host: "postgres://root:TF5Rnn7mN19jRYTntn2O8maWEJaeQb55@dpg-cn6ol0qcn0vc73dllbb0-a.singapore-postgres.render.com/db_chatapp",
+    //     dialect: "postgres",
+    //     logging: false,
+    //   }
+    // );
     sequelize = new Sequelize(
-      process.env.DB_NAME,
-      process.env.DB_USER_NAME,
-      process.env.DB_PASSWORD,
+      "postgres://root:TF5Rnn7mN19jRYTntn2O8maWEJaeQb55@dpg-cn6ol0qcn0vc73dllbb0-a/db_chatapp",
       {
-        host: "postgres://root:TF5Rnn7mN19jRYTntn2O8maWEJaeQb55@dpg-cn6ol0qcn0vc73dllbb0-a/db_chatapp",
         dialect: "postgres",
-        logging: false,
+        protocol: "postgres",
+        dialectOptions: {}, //removed ssl
       }
     );
   };
