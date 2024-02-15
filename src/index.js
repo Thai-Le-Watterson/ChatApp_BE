@@ -18,7 +18,7 @@ const server = http.Server(app);
 const port = process.env.PORT;
 connection.testConnection();
 
-// initModels();
+initModels();
 
 app.use(
   cors({
