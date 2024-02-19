@@ -30,6 +30,8 @@ const authController = {
           httpOnly: true,
           path: "/",
           maxAge: 30 * 24 * 60 * 60 * 1000,
+          sameSite: "None",
+          secure: true,
         });
         res.json({ errCode: 0, user: userCopy, token });
       } else res.json({ errCode: 3, message: "User does not exists!" });
