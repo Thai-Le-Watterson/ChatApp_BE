@@ -9,7 +9,7 @@ const authController = {
       const { email, password } = req.body;
 
       if (!email || !password) {
-        res.json({
+        return res.json({
           errCode: 2,
           message: "Please provide email and password to login",
         });

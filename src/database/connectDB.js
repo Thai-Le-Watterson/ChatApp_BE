@@ -15,7 +15,7 @@ const connection = (function () {
     //   }
     // );
     sequelize = new Sequelize(
-      "postgres://root:TF5Rnn7mN19jRYTntn2O8maWEJaeQb55@dpg-cn6ol0qcn0vc73dllbb0-a/db_chatapp",
+      "postgres://default:vZQLy9X4nIje@ep-weathered-bird-a14malwx.ap-southeast-1.aws.neon.tech:5432/verceldb?sslmode=require",
       {
         dialect: "postgres",
         protocol: "postgres",

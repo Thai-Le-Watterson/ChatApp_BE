@@ -80,16 +80,16 @@ const userController = {
   updateUser: async (req, res) => {
     try {
       if (req.body) {
-        const { userId, email, password, fullName, avatar, role } = req.body;
+        const { userId, email, password, fullName, avatar } = req.body;
 
-        if ((userId, email, password, fullName, avatar, role)) {
+        if ((userId, email, password, fullName, avatar)) {
           await User.update(
             {
               email,
               password,
               fullName,
               avatar,
-              role,
+              role: "R1",
             },
             {
               where: {

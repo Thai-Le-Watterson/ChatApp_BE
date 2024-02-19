@@ -199,11 +199,11 @@ const conversationController = {
   },
   updateConversation: async (req, res) => {
     try {
-      const { name, avatar } = req.body;
+      const { name, avatar, type } = req.body;
       const { conversationId } = req.params;
 
       const [result] = await Conversation.update(
-        { name: name || null, avatar: avatar || null },
+        { name: name || null, avatar: avatar || null, type },
         { where: { _id: conversationId } }
       );
 
