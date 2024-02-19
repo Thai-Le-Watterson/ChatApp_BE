@@ -26,7 +26,11 @@ const authController = {
         };
         const token = Common.signedToken(userCopy);
 
-        res.cookie("Authorization", token, { httpOnly: true, path: "/" });
+        res.cookie("Authorization", token, {
+          httpOnly: true,
+          path: "/",
+          maxAge: 30 * 24 * 60 * 60 * 1000,
+        });
         res.json({ errCode: 0, user: userCopy, token });
       } else res.json({ errCode: 3, message: "User does not exists!" });
     } catch (err) {
@@ -65,7 +69,11 @@ const authController = {
           };
           const token = Common.signedToken(userCopy);
 
-          res.cookie("Authorization", token, { httpOnly: true, path: "/" });
+          res.cookie("Authorization", token, {
+            httpOnly: true,
+            path: "/",
+            maxAge: 30 * 24 * 60 * 60 * 1000,
+          });
           res.json({
             errCode: 0,
             token,

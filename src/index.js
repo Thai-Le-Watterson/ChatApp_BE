@@ -23,7 +23,7 @@ initModels();
 app.use(
   cors({
     credentials: true,
-    origin: true,
+    origin: process.env.CLIENT_URL || true,
     optionSuccessStatus: 200,
   })
 );
