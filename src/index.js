@@ -16,19 +16,26 @@ dotenv.config();
 const app = express();
 const server = http.Server(app);
 const port = process.env.PORT;
+const whitelist = [process.env.CLIENT_URL];
+const corsOptions = {
+  credentials: true,
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  optionSuccessStatus: 200,
+};
+
 connection.testConnection();
 
 initModels();
 
-app.use(
-  cors({
-    credentials: true,
-    origin: process.env.CLIENT_URL || true,
-    optionSuccessStatus: 200,
-  })
-);
+app.use(cors(corsOptions));
 app.use(function (req, res, next) {
-  // res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Credentials", true);
   res.header(
     "Access-Control-Allow-Headers",

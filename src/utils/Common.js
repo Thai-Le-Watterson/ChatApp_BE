@@ -22,6 +22,18 @@ const Common = {
   getDefaultMessage: () => {
     return "Cùng nhau trò chuyện nào!";
   },
+  whitelist: [process.env.CLIENT_URL],
+  corsOptions: {
+    credentials: true,
+    origin: function (origin, callback) {
+      if (whitelist.indexOf(origin) !== -1) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    optionSuccessStatus: 200,
+  },
 };
 
 export default Common;
