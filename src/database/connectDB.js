@@ -20,6 +20,7 @@ const connection = (function () {
         dialect: "postgres",
         protocol: "postgres",
         dialectOptions: {}, //removed ssl
+        logging: false,
       }
     );
   };

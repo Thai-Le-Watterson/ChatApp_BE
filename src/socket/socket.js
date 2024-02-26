@@ -3,9 +3,14 @@ import { Server } from "socket.io";
 import { Message } from "../models/index.js";
 
 const initSocket = (server) => {
+  const clientURL =
+    process.env.NODE_ENV === "production"
+      ? process.env.CLIENT_URL
+      : process.env.CLIENT_LOCAL_URL;
+
   let io = new Server(server, {
     cors: {
-      origin: process.env.CLIENT_URL || "http://localhost:3000",
+      origin: clientURL,
       methods: ["GET", "POST"],
     },
   });
@@ -21,7 +26,6 @@ const initSocket = (server) => {
         const { senderId, conversationId, content } = message;
 
         if (senderId && conversationId && content) {
-          console.log(content);
           const message = await Message.create({
             senderId,
             conversationId,
