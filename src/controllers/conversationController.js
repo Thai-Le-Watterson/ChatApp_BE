@@ -75,6 +75,8 @@ const conversationController = {
 
       const conversation = await Conversation.findByPk(conversationId);
 
+      console.log("conversation: ", conversation);
+
       if (conversation) res.json({ errCode: 0, conversation });
       else
         res.json({
@@ -105,9 +107,10 @@ const conversationController = {
   },
   addMemberToConversation: async (req, res) => {
     try {
-      const { conversationId, memberId } = req.params;
+      const { conversationId } = req.params;
+      const { usersId } = req.body;
 
-      if (conversationId && memberId && Number.isInteger(+memberId)) {
+      if (conversationId && usersId && Array.isArray(usersId)) {
         const { dataValues: conversation } = await Conversation.findByPk(
           conversationId
         );
@@ -115,7 +118,7 @@ const conversationController = {
         if (conversation) {
           const result = await Conversation.update(
             {
-              membersId: [...conversation.membersId, +memberId],
+              membersId: [...conversation.membersId, ...usersId],
             },
             {
               where: {
@@ -125,27 +128,27 @@ const conversationController = {
           );
 
           if (result)
-            res.json({
+            return res.json({
               errCode: 0,
               message: "Add member to conversation successfull!",
             });
           else
-            res.json({
+            return res.json({
               errCode: 4,
               message: "Add member to conversation failed!",
             });
         } else {
-          res.json({
+          return res.json({
             errCode: 3,
             message: "The conversation does not exists!",
           });
         }
       } else {
-        res.json({ errCode: 2, message: "Data empty!" });
+        return res.json({ errCode: 2, message: "Data empty!" });
       }
     } catch (err) {
-      // console.log("Error: ", err);
-      res.json({ errCode: 1, message: "Error from server!" });
+      console.log("Error: ", err);
+      return res.json({ errCode: 1, message: "Error from server!" });
     }
   },
   deleteMemberFromConversation: async (req, res) => {
@@ -174,27 +177,27 @@ const conversationController = {
           );
 
           if (result)
-            res.json({
+            return res.json({
               errCode: 0,
               message: "Delete member from conversation successfull!",
             });
           else
-            res.json({
+            return res.json({
               errCode: 4,
               message: "Delete member from conversation failed!",
             });
         } else {
-          res.json({
+          return res.json({
             errCode: 3,
             message: "The conversation does not exists!",
           });
         }
       } else {
-        res.json({ errCode: 2, message: "Data empty!" });
+        return res.json({ errCode: 2, message: "Data empty!" });
       }
     } catch (err) {
-      // console.log("Error: ", err);
-      res.json({ errCode: 1, message: "Error from server!" });
+      console.log("Error: ", err);
+      return res.json({ errCode: 1, message: "Error from server!" });
     }
   },
   updateConversation: async (req, res) => {
@@ -217,6 +220,10 @@ const conversationController = {
   deleteConversation: async (req, res) => {
     try {
       const { conversationId } = req.params;
+
+      await Message.destroy({
+        where: { conversationId },
+      });
 
       const result = await Conversation.destroy({
         where: { _id: conversationId },

@@ -12,12 +12,12 @@ conversationRouter
 conversationRouter
   .route("/:conversationId")
   .get(conversationController.getConversation)
+  .post(conversationController.addMemberToConversation)
   .put(conversationController.updateConversation)
   .delete(conversationController.deleteConversation);
 
 conversationRouter
   .route("/:conversationId/:memberId")
-  .post(conversationController.addMemberToConversation)
   .delete(conversationController.deleteMemberFromConversation);
 
 export default conversationRouter;

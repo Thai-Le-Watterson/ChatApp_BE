@@ -11,12 +11,7 @@ const messageController = {
           order: [["createdAt", "DESC"]],
         });
 
-        if (messages.length > 0) res.json({ errCode: 0, messages });
-        else
-          res.json({
-            errCode: 3,
-            message: "This conversation cannot be found!",
-          });
+        return res.json({ errCode: 0, messages });
       } else {
         res.json({
           errCode: 2,

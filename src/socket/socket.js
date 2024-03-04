@@ -31,6 +31,7 @@ const initSocket = (server) => {
             conversationId,
             content,
           });
+          console.log("message: ", message);
           io.emit("send-message", message);
         }
       } catch (err) {
