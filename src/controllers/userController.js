@@ -300,7 +300,7 @@ const userController = {
       } else if (response === "ALW") {
         const conversationPV = await Conversation.findOne({
           where: {
-            members: {
+            membersId: {
               [Op.contains]: [
                 friendRequest.dataValues.senderId,
                 friendRequest.dataValues.receiverId,
