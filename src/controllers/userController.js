@@ -306,6 +306,7 @@ const userController = {
                 friendRequest.dataValues.receiverId,
               ],
             },
+            type: "PV",
           },
         });
         if (!conversationPV) {
